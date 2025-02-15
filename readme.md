@@ -24,7 +24,7 @@
 1. **Клонируйте репозиторий:**
 
    ```bash
-   git clone https://github.com/yourusername/stream-notifier.git
+   git clone https://github.com/ivannikovaleksej10/stream-notifier.git
    cd stream-notifier
 
 2. **Установите зависимости:**
@@ -32,13 +32,15 @@
     npm install
 
 3. **Настройте конфигурацию:**
+   
     Отредактируйте файл .env.txt, замените заглушки на свои данные и сохраните под названием .env;
+   
     Отредактируйте файл bot.js, замените айди админа и ссылку на стримера;
 
-4. **Запустите Telegram-бота:**
+5. **Запустите Telegram-бота:**
     ```bash
     npm run bot
 
-5. **Запустите основной модуль мониторинга стрима:**
+6. **Запустите основной модуль мониторинга стрима:**
     ```bash
     npm start
