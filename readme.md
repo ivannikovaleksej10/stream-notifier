@@ -1,4 +1,9 @@
 # Twitch Stream Notifier (afknotify)
+![License](https://img.shields.io/github/license/ivannikovaleksej10/stream-notifier)
+![Language](https://img.shields.io/github/languages/top/ivannikovaleksej10/stream-notifier)
+![Last Commit](https://img.shields.io/github/last-commit/ivannikovaleksej10/stream-notifier)
+![Size](https://img.shields.io/github/repo-size/ivannikovaleksej10/stream-notifier)
+
 
 Приложение на Node.js для мониторинга Twitch-канала и отправки уведомлений о начале стрима в Telegram и Discord. Приложение использует Twitch API для проверки статуса стрима, Telegram Bot API и Discord вебхуки для уведомлений, а также SQLite для хранения подписанных пользователей.
 
