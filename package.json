@@ -6,7 +6,7 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "ivannikovaleksej",
   "license": "ISC",
   "description": "Уведомления о стриме в Telegram и Discord",
   "dependencies": {
