@@ -96,4 +96,30 @@ bot.onText(/\/stats/, (msg) => {
   });
 });
 
+// Обработчик команды /broadcast для рассылки сообщений всем пользователям (только для администратора)
+bot.onText(/\/broadcast (.+)/, (msg, match) => {
+  const senderChatId = msg.chat.id;
+  
+  if (senderChatId !== ADMIN_CHAT_ID) {
+    return bot.sendMessage(senderChatId, "⛔ У вас нет прав для выполнения этой команды.");
+  }
+
+  const broadcastMessage = match[1];
+
+  db.all('SELECT chat_id FROM users', (err, rows) => {
+    if (err) {
+      console.error("Ошибка при получении пользователей для рассылки:", err.message);
+      return bot.sendMessage(senderChatId, "Ошибка при получении пользователей для рассылки.");
+    }
+
+    // Отправляем сообщение каждому пользователю
+    rows.forEach((user) => {
+      bot.sendMessage(user.chat_id, broadcastMessage, { parse_mode: "HTML" })
+        .catch(error => console.error(`Ошибка при отправке сообщения пользователю ${user.chat_id}:`, error.message));
+    });
+
+    bot.sendMessage(senderChatId, `✅ Рассылка отправлена ${rows.length} пользователям.`);
+  });
+});
+
 console.log('Telegram бот запущен и готов принимать команды...');
