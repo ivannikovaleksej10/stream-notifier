@@ -1,0 +1,14 @@
+
+---
+
+### .gitignore
+
+```gitignore
+
+node_modules/
+
+*.log
+
+db/*.db
+
+.env
