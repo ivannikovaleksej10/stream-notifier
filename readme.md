@@ -1,4 +1,4 @@
-# Twitch Stream Notifier (afknotify)
+# Twitch Stream Notifier [(afknotify)](@afknotify_bot)
 ![License](https://img.shields.io/github/license/ivannikovaleksej10/stream-notifier)
 ![Language](https://img.shields.io/github/languages/top/ivannikovaleksej10/stream-notifier)
 ![Last Commit](https://img.shields.io/github/last-commit/ivannikovaleksej10/stream-notifier)
