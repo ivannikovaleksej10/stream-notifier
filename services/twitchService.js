@@ -20,11 +20,21 @@ async function getTwitchAccessToken() {
 }
 
 /**
- * Проверка статуса стрима.
- * @param {Function} notifyCallback Функция для отправки уведомления.
- * @param {Object} streamState Объект для отслеживания состояния стрима.
+ * Проверка статуса стрима для канала, указанного в config.twitch.channelName.
+ * Если стрим начался и уведомление еще не отправлялось, вызывается notifyCallback(message).
+ * Флаг streamState.isLive и глобальный флаг global.notificationSent
+ * гарантируют, что уведомление отправится только один раз за стрим.
+ *
+ * @param {Function} notifyCallback - функция для отправки уведомления всем пользователям.
+ * @param {Object} streamState - объект для отслеживания состояния стрима.
  */
 async function checkStream(notifyCallback, streamState) {
+  // Дополнительная проверка, чтобы убедиться, что notifyCallback — функция
+  if (typeof notifyCallback !== 'function') {
+    console.error("Ошибка: notifyCallback не является функцией. Его тип:", typeof notifyCallback);
+    return;
+  }
+
   if (!config.twitch.accessToken) {
     await getTwitchAccessToken();
   }
@@ -39,18 +49,20 @@ async function checkStream(notifyCallback, streamState) {
       }
     );
 
-    // Если данные о стриме присутствуют, значит канал в эфире
     if (response.data.data && response.data.data.length > 0) {
       if (!streamState.isLive) {
         streamState.isLive = true;
-        console.log("Стрим начался!");
-        // Формируем сообщение с HTML-ссылкой для Telegram
-        const message = `Стрим начался! <a href="https://twitch.tv/${config.twitch.channelName}">Заходите посмотреть!</a>`;
-        notifyCallback(message);
+        if (!global.notificationSent) {
+          global.notificationSent = true;
+          console.log("Стрим начался!");
+          const message = `Стрим начался! <a href="https://twitch.tv/${config.twitch.channelName}">Заходите посмотреть!</a>`;
+          notifyCallback(message);
+        }
       }
     } else {
       if (streamState.isLive) {
         streamState.isLive = false;
+        global.notificationSent = false;
         console.log("Стрим закончился.");
       }
     }
